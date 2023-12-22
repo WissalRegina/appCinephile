@@ -1,0 +1,79 @@
+
+<head>
+<title>Movies</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="/style3.css" type="text/css" media="all" />
+</head>	
+<body>
+<div id="shell">
+	  <div id="header">
+   
+    
+    <div id="navigation">
+      <ul>
+        <li><a class="active" href="/user/">Accueil</a></li>
+        <li><a href="/user/watchList">WatchList</a></li>
+        <li><a href="/user/favoris">favorites</a></li>
+        <li><a href="/logout">Logout</a></li>
+        
+      </ul>
+    </div>
+    <div id="sub-navigation">
+     
+      <div id="search">
+        <form th:action="@{/user/search}" method="get">
+          <label for="search-field">SEARCH</label>
+          <input type="text" name="query" placeholder="Titre du film" id="search-field" class="blink search-field"  />
+          <input type="submit" value="GO!" class="search-button" />
+        </form>
+      </div>
+      
+      <div id="search_genre">
+      <h2>GENRE</h2>
+    <ul>
+        <li th:each="genre : ${genres}">
+            <a th:href="@{/user/movies-by-genre(genreId=${genre.getId()})}">
+                <span th:text="${genre.getName()}"></span>
+            </a>
+        </li>
+    </ul>
+      </div>
+      
+       <ul>
+        <li><a class="active" href="/user/">Popular Movies</a></li>
+        <li><a href="/user/nowPlaying">Now Playing</a></li>
+        <li><a href="/user/topRated">TOP Rated</a></li>
+        <li><a href="/user/upComing">UpComing</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div id="main">
+  	<div id="content">
+  		<div class="box">
+  			 <div class="head">
+          <h2>Popular Movies</h2>
+          
+        </div>
+        
+        
+        	<div th:each="movie : ${movies}" class="movie">
+    <div class="movie-image">
+        <span class="play"><span class="name" th:text="${movie.title}"></span></span>
+        <a th:href="@{/user/movie/{id}(id=${movie.id})}"><img th:src="${'https://image.tmdb.org/t/p/w500/' + movie.posterPath}" alt="Affiche du film" /></a>
+    </div>
+    <div class="cl">&nbsp;</div>
+    <a th:href="@{/user/movie/{id}(id=${movie.id})}">Détails</a>
+</div>
+  		
+  		
+  	</div>
+  </div>
+</div>
+
+
+<h1>Name : [[${user.fullName}]]</h1>
+	<h1>Email : [[${user.email}]]</h1>
+	<h1>ID : [[${user.id}]]</h1>
+	
+</body>

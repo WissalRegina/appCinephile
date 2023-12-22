@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Watchlist</title>
+    <link rel="stylesheet" href="/style5.css" type="text/css" media="all" />
+</head>
+<body>
+
+<div id="shell">
+ <div id="header">
+   
+    
+    <div id="navigation">
+      <ul>
+        <li><a  href="/user/">Accueil</a></li>
+        <li><a class="active" href="/user/watchList">WatchList</a></li>
+        <li><a href="/user/favoris">favorites</a></li>
+        <li><a href="/logout">Logout</a></li>
+        
+      </ul>
+    </div>
+    <div id="sub-navigation">
+     
+      <div id="search">
+        <form th:action="@{/user/search}" method="get">
+          <label for="search-field">SEARCH</label>
+          <input type="text" name="query" placeholder="Titre du film" id="search-field" class="blink search-field"  />
+          <input type="submit" value="GO!" class="search-button" />
+        </form>
+      </div>
+      
+      <div id="search_genre">
+      <h2>GENRE</h2>
+    <ul>
+        <li th:each="genre : ${genres}">
+            <a th:href="@{/user/movies-by-genre(genreId=${genre.getId()})}">
+                <span th:text="${genre.getName()}"></span>
+            </a>
+        </li>
+    </ul>
+      </div>
+      
+       <ul>
+        <li><a href="/user/">Popular Movies</a></li>
+        <li><a href="/user/nowPlaying">Now Playing</a></li>
+        <li><a href="/user/topRated">TOP Rated</a></li>
+        <li><a href="/user/upComing">UpComing</a></li>
+      </ul>
+    </div>
+  </div>
+  
+    <h1 class="title">My Watchlist :</h1>
+    <table class="table">
+        <tr >
+        	<th class="th">Poster</th>
+            <th class="th">Title</th>
+            <th class="th">Release Date</th>
+            <th class="th">Popularity</th>
+            <th class="th">Overview</th>
+        </tr>
+        <tr th:each="movie : ${watchlist}">
+        	<td class="td"><a th:href="@{/user/movie/{id}(id=${movie.id})}"><img th:src="${'https://image.tmdb.org/t/p/w500/' + movie.posterPath}" alt="Affiche du film" /></a></td>
+            <td th:text="${movie.title}" class="td"></td>
+            <td th:text="${movie.releaseDate}" class="td"></td>
+            <td th:text="${movie.popularity}" class="td"></td>
+            <td th:text="${movie.overview}" class="td"></td>
+            <td class="td">
+            <form th:action="@{/user/{userId}/watched/add/{movieId}(userId=${idUser}, movieId=${movie.id})}" method="post" id="watchedForm">
+    			<button id="watchedButton" type="submit" class="button">Watch</button>
+                <span id="watchedText" class="hidden-text">Movie Already Watched</span>
+            </form>
+            
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+
+<script>
+    document.getElementById("watchedForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Empêche l'envoi du formulaire
+
+        var watchedButton = document.getElementById("watchedButton");
+        var watchedText = document.getElementById("watchedText");
+
+        watchedButton.style.display = "none"; // Masque le bouton
+        watchedText.style.display = "inline"; // Affiche le texte d'information
+    });
+</script>
+

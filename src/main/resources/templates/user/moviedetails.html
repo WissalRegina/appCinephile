@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Details</title>
+    
+<link rel="stylesheet" href="/style3.css" type="text/css" media="all" />
+</head>
+<body>
+<div id="shell">
+     <div id="header">
+     <div id="navigation">
+      <ul>
+        <li><a href="/user/">Accueil</a></li>
+        <li><a href="/user/watchList">WatchList</a></li>
+        <li><a href="/user/favoris">favorites</a></li>
+        <li><a href="/logout">Logout</a></li>
+        
+      </ul>
+    </div>
+     <div id="sub-navigation">
+     
+      <div id="search">
+        <form th:action="@{/user/search}" method="get">
+          <label for="search-field">SEARCH</label>
+          <input type="text" name="query" placeholder="Titre du film" id="search-field" class="blink search-field"  />
+          <input type="submit" value="GO!" class="search-button" />
+        </form>
+      </div>
+      <div id="search_genre">
+      <h2>GENRE</h2>
+    <ul>
+        <li th:each="genre : ${genres}">
+            <a th:href="@{/user/movies-by-genre(genreId=${genre.getId()})}">
+                <span th:text="${genre.getName()}"></span>
+            </a>
+        </li>
+    </ul>
+      </div>
+      
+       <ul>
+         <li><a href="/user/">Popular Movies</a></li>
+        <li><a href="/user/nowPlaying">Now Playing</a></li>
+        <li><a href="/user/topRated">TOP Rated</a></li>
+        <li><a href="/user/upComing">UpComing</a></li>
+      </ul>
+    </div>
+    
+     </div>
+      
+
+
+
+
+<div class="movie-details" th:if="${movieDetails}">
+    <h1 class="movie-title" th:text="${movieDetails.title}"></h1>
+    
+   
+	
+	<form th:if="${isMovieInWishlist}" th:action="@{/user/{userId}/remove/{movieId}(userId=${idUser}, movieId=${movieDetails.id})}" method="post">
+    <button type="submit" class="button-remove">Remove From WatchList</button>
+</form>
+
+<form th:unless="${isMovieInWishlist}" th:action="@{/user/{userId}/add/{movieId}(userId=${idUser}, movieId=${movieDetails.id})}" method="post">
+    <button type="submit" class="button-add">Add To WachList</button>
+</form>
+
+<form th:if="${isMovieInFavorislist}" th:action="@{/user/{userId}/favoris/remove/{movieId}(userId=${idUser}, movieId=${movieDetails.id})}" method="post">
+    <button type="submit" class="button-remove">Remove From Favoris</button>
+</form>
+
+<form th:unless="${isMovieInFavorislist}" th:action="@{/user/{userId}/favoris/add/{movieId}(userId=${idUser}, movieId=${movieDetails.id})}" method="post">
+    <button type="submit" class="button-add">Add To Favoris</button>
+</form>
+
+    
+    <p><strong>Popularity :</strong> <span th:text="${movieDetails.popularity}"></span></p>
+    <p><strong>Release Date :</strong> <span th:text="${movieDetails.releaseDate}"></span></p>
+    <p><strong>Synopsis :</strong> <span th:text="${movieDetails.overview}"></span></p>
+    <p><strong>Genres :</strong></p>
+    <ul class="genre-list">
+        <li th:each="genre : ${movieDetails.genres}" th:text="${genre.name}"></li>
+    </ul>
+    <p><strong>Poster :</strong></p>
+    <img class="movie-poster" th:src="${'https://image.tmdb.org/t/p/w500/' + movieDetails.posterPath}" alt="Affiche du film">
+    
+    
+     <a class="trailer-link" th:href="${trailerLink}" target="_blank">
+        <span class="trailer-icon">SEE</span>
+        TRAILER
+    </a>
+    
+    
+
+    <h1 class="actors-title">Movie Actors</h1>
+    <div class="actors-carousel">
+        <ul class="actors-list">
+            <li th:each="actor : ${actors}">
+                <div class="actor-card">
+                    <img class="actor-image" th:src="${'https://image.tmdb.org/t/p/w500/' + actor.profile_image}" alt="Photo de l'acteur">
+                    <div class="actor-details">
+                        <strong class="actor-name" th:text="${actor.name}"></strong><br>
+                        <span class="actor-character" th:text="${actor.character}"></span><br>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+   
+    
+    
+  <div class="review-container">
+  <h1 class="actors-title">REVIEW</h1>
+   <form th:action="@{/user/{userId}/reviews/add/{movieId}(userId=${idUser}, movieId=${movieDetails.id})}" method="post" class="form-container1">
+     <div class="form-group1">
+            <label class="form-label" for="rating">Note :</label>
+            <input class="form-input" type="number" id="rating" name="rating" min="1" max="5" required>
+        </div>
+        <div class="form-group1">
+            <label class="form-label" for="comment">Commentaire :</label>
+            <textarea class="form-textarea" id="comment" name="comment" required></textarea>
+        </div>
+        <div class="form-group1">
+            <label class="form-label" for="avatar">Avatar :</label>
+            <input class="form-input" type="text" id="avatar" name="avatar" required>
+        </div>
+    <button class="form-button1" type="submit">Add Review</button>
+   </form>
+  
+  
+  <div th:each="rev : ${reviewsAjoute}" class="review">
+  		<img class="avatar-image" th:src="${rev.avatar}" alt="reviewer Avatar" />
+  		 <h3 th:text="${rev.getUser().getUserName()}" class="review-author"></h3>
+        <p th:text="${rev.rating}" class="review-rating"></p>
+        <p th:text="${rev.comment}" class="review-content"></p>
+  </div>
+  
+  
+  
+    <div th:each="review : ${reviews}" class="review">
+        <img class="avatar-image" th:src="${'https://image.tmdb.org/t/p/w500/' + review.getAuthordetails().getAvatarPath()}" alt="Reviewer Avatar">
+        <h3 th:text="${review.author}" class="review-author"></h3>
+        <p th:text="${review.getAuthordetails().getRating()}" class="review-rating"></p>
+        <p th:text="${review.content}" class="review-content"></p>
+    </div>
+</div>
+
+    
+    
+
+    <div class="similar-movies">
+        <h2>Recommanded For you</h2>
+        <ul class="similar-movies-list">
+            <li th:each="similarMovie : ${similarMovies}">
+            
+                <a th:href="@{/user/movie/{id}(id=${similarMovie.id})}">
+                <img class="similar-movie-poster" th:src="${'https://image.tmdb.org/t/p/w500/' + similarMovie.posterPath}" alt="Affiche du film"></a>
+                <h3 class="similar-movie-title" th:text="${similarMovie.title}"></h3>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="no-details" th:unless="${movieDetails}">
+    <p>Aucun détail disponible pour ce film.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+    
+    
+    
+</body>
+</html>
+
+

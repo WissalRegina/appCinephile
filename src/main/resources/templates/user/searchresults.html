@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Movie Search</title>
+    <link rel="stylesheet" href="/style4.css" type="text/css" media="all" />
+</head>
+<body>
+
+    
+    <h2>Movie Search Results</h2>
+    <ul>
+        <li th:each="movie : ${movies}">
+            <h3 th:text="${movie.getTitle()}"></h3>
+            <p th:text="${movie.getOverview()}"></p>
+            <p>Release Date :  <span th:text="${movie.getReleaseDate()}"></span></p>
+            <a th:href="@{/user/movie/{id}(id=${movie.id})}"><img th:src="${'https://image.tmdb.org/t/p/w500/' + movie.posterPath}" alt="Affiche du film" /></a>
+        </li>
+    </ul>
+</body>
+</html>

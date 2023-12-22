@@ -1,0 +1,254 @@
+html, body, div, span, object, h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul,
+li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+    vertical-align: baseline;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #f9f9f9;
+}
+
+#shell {
+    width: 960px;
+    margin: 0 auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+#header {
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+}
+
+#header h1 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+#navigation {
+    
+    float:right;
+	clear:right;
+	padding-top:28px;
+	padding-bottom:47px;
+}
+
+#navigation ul {
+    list-style: none;
+}
+
+#navigation ul li {
+    display: inline;
+    
+    float:left;
+	
+	padding-left:29px;
+}
+
+#navigation ul li a {
+    
+    text-decoration: none;
+    font-size:14px;
+	font-weight:bold;
+	color:#fff;
+	
+}
+
+#navigation ul li a.active {
+    font-weight: bold;
+    color:#d91d2a; /* Couleur en gras pour l'élément actif */
+}
+
+#sub-navigation ul li a.active {
+    color:#d91d2a; /* Couleur en gras pour l'élément actif */
+}
+
+#sub-navigation {
+    
+    
+    margin-top: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 10px;
+}
+
+#sub-navigation ul {
+    list-style: none;
+}
+
+#sub-navigation ul li {
+   display: inline;
+    margin-right: 10px;
+}
+
+#sub-navigation ul li a {
+
+   
+    text-decoration: none;
+    
+    font-size:14px;
+	font-weight:bold;
+	color:#fff;
+	line-height:24px;
+	text-decoration:none;
+}
+#sub-navigation ul li a:hover {
+	text-decoration:underline;
+}
+#search {
+    width:346px;
+	margin:0 0 0 auto;
+}
+
+#search label {
+    
+    float:left;
+	display:inline;
+	font-size:14px;
+	font-weight:bold;
+	color:#fff;
+	line-height:24px;
+	padding-right:6px;
+}
+
+#search input[type="text"] {
+    padding: 5px;
+}
+
+#search .search-button {
+	font-size:14px;
+	font-weight:bold;
+	border:0;
+	background:none;
+	color:#fff;
+	cursor:pointer;
+}
+
+#search_genre {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+#search_genre h2 {
+    font-weight: bold;
+    color: #f2a223;
+    margin-bottom: 10px;
+}
+
+#search_genre ul {
+    list-style: none;
+}
+
+#search_genre ul li {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin-bottom: 5px;
+}
+
+
+/*
+        
+        .title {
+            color: #ff0000;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .th {
+            background-color: #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        
+        .td {
+            padding: 10px;
+    align-items: center;
+    justify-content: flex-start;
+        }
+        
+        .button {
+            padding: 5px 10px;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        
+        .hidden-text {
+            display: none;
+        }
+        .td img {
+    max-width: 100px;
+}
+
+
+
+
+   body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }*/
+
+        .title {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .th {
+            background-color: #f2f2f2;
+            padding: 10px;
+            font-weight: bold;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .td img {
+            max-width: 100px;
+            height: auto;
+        }
+
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .hidden-text {
+            display: none;
+            color: red;
+        }
